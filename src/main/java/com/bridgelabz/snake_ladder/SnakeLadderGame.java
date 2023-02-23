@@ -17,10 +17,16 @@ public class SnakeLadderGame {
                     player1position -= number;
                     break;
             }
+
             if (player1position < 0) {
                 player1position = 0;
             }
+
+            if (player1position > 100) {
+                player1position -= number;
+            }
         }
-        System.out.println(player1position);
+
+        System.out.println("Final position " + player1position);
     }
 }
