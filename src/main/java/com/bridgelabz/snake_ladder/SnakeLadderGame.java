@@ -6,46 +6,42 @@ public class SnakeLadderGame {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder game");
-        int player1Position = 0, player2Position = 0;
+        int playerOnePosition = 0, playerTwoPosition = 0;
         SnakeLadderGame snakeLadderGame = new SnakeLadderGame();
-        while (player1Position < WINNING_POSITION && player2Position < WINNING_POSITION) {
-            player1Position = snakeLadderGame.playGame(player1Position);
-            //System.out.println("Player 1 position is " + player1Position);
-            player2Position = snakeLadderGame.playGame(player2Position);
-            //System.out.println("Player 2 position is " + player2Position);
+        for (playerOnePosition = 0, playerTwoPosition = 0; playerOnePosition < WINNING_POSITION && playerTwoPosition < WINNING_POSITION;) {
+            playerOnePosition = snakeLadderGame.playGame(playerOnePosition);
+            //System.out.println("Player 1 position is " + playerOnePosition);
+            playerTwoPosition = snakeLadderGame.playGame(playerTwoPosition);
+            //System.out.println("Player 2 position is " + playerTwoPosition);
         }
 
-        System.out.println("No of times dice rolled: " + snakeLadderGame.diceCounter);
-        if (player1Position > player2Position)
-            System.out.println("Winner is Player 1");
+        System.out.println("No of times dice rolled: " + snakeLadderGame.diceCounter + '\n' + "Players position are: " + playerOnePosition + " " + playerTwoPosition);
+        if (playerOnePosition > playerTwoPosition)
+            System.out.println("Winner is Player One");
         else
-            System.out.println("Winner is Player 2");
+            System.out.println("Winner is Player Two");
     }
 
     int playGame(int position) {
+        final int noPLay = 0, ladder = 1, snake = 2;
         int diceNumber = (int) Math.floor(Math.random() * 100) % 6 + 1;
         diceCounter++;
         int option = (int) Math.floor(Math.random() * 10) % 3;
         switch (option) {
-            case 0:
+            case noPLay:
                 break;
-            case 1:
+            case ladder:
                 position += diceNumber;
+                if (position > WINNING_POSITION)
+                    position -= diceNumber;
                 position = playGame(position);
                 break;
-            case 2:
+            case snake:
                 position -= diceNumber;
+                if (position < 0)
+                    position = 0;
                 break;
         }
-
-        if (position < 0) {
-            position = 0;
-        }
-
-        if (position > WINNING_POSITION) {
-            position -= diceNumber;
-        }
-
         return position;
     }
 }
